@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boda de Eduardo y Ana Laura - Editorial</title>
+<title>Boda de Eduardo y Laura - Editorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -106,8 +106,6 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .venue-type{font-family:var(--font-sans);font-size:.75rem;letter-spacing:3px;color:var(--gold);margin-bottom:5px;font-weight:600}
 .venue-name{font-size:1.8rem;margin-bottom:10px}
 .venue-time{font-family:var(--font-sans);font-weight:500;font-size:1.1rem;color:var(--main-dark);margin-bottom:12px}
-.venue-note{font-family:var(--font-sans);font-size:.7rem;letter-spacing:1.5px;color:var(--gold-light);opacity:.9;margin-bottom:20px;text-transform:uppercase}
-.venue-note i{margin-right:6px;color:var(--gold)}
 .map-iframe-container{width:100%;height:220px;overflow:hidden;margin-bottom:20px;border:1px solid rgba(201,169,106,.25)}
 .map-iframe-container iframe{width:100%;height:100%;filter:grayscale(.4) invert(.9) hue-rotate(180deg) contrast(.9)}
 
@@ -123,7 +121,6 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .satin-black{background:linear-gradient(135deg,#000 0%,#1c1c22 25%,#000 50%,#17171d 75%,#000 100%);color:var(--white);width:calc(100% + 60px);margin:0 -30px 40px;padding:50px 30px;border-top:1px solid rgba(201,169,106,.4);border-bottom:1px solid rgba(201,169,106,.4);box-shadow:inset 0 0 50px rgba(0,0,0,.9)}
 .dress-code-title{font-family:var(--font-sans);font-size:.8rem;letter-spacing:4px;margin-bottom:15px;color:var(--gold-light);font-weight:500}
 .dress-code-main{font-size:2.8rem;margin-bottom:10px;line-height:1.1}
-.no-kids-block{padding:25px;width:100%;border-top:1px solid rgba(201,169,106,.4);border-bottom:1px solid rgba(201,169,106,.4);margin-bottom:40px}
 
 /* Formularios */
 .editorial-form-box{width:100%;background:var(--card-2);padding:40px 30px;border-radius:2px;border:1px solid rgba(201,169,106,.3);box-shadow:0 10px 30px rgba(0,0,0,.4);margin-top:20px}
@@ -178,7 +175,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
 <div id="envelope-screen">
   <div class="envelope-wrapper" onclick="openInvitation()">
     <div class="envelope-front"></div>
-    <div class="envelope-flap"><div class="seal">E&A</div></div>
+    <div class="envelope-flap"><div class="seal">E&L</div></div>
     <div class="envelope-body"></div>
   </div>
   <div class="envelope-text">Toca para abrir</div>
@@ -195,11 +192,11 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     <div class="names-container">
       <span class="name anim-el track-in">EDUARDO</span>
       <span class="ampersand anim-el rotate-in" style="transition-delay:.5s">y</span>
-      <span class="name anim-el track-in" style="transition-delay:.9s">ANA LAURA</span>
+      <span class="name anim-el track-in" style="transition-delay:.9s">LAURA</span>
     </div>
     <div class="divider anim-el scale-in" style="transition-delay:.3s"><i class="fa-solid fa-heart" style="font-size:.9rem"></i></div>
 
-    <img src="assets/1.jpg" class="clickable-photo photo-margin anim-el zoom-out" onclick="openLightbox(this.src)" alt="Eduardo y Ana Laura">
+    <img src="assets/1.jpg" class="clickable-photo photo-margin anim-el zoom-out" onclick="openLightbox(this.src)" alt="Eduardo y Laura">
 
     <p class="welcome-phrase anim-el blur-in">
       "Con mucha ilusión queremos compartir contigo uno de los días más importantes de nuestras vidas. Después de tantos momentos compartidos, ha llegado el momento de celebrar nuestro amor y comenzar un nuevo capítulo juntos.<br><br>Será un honor contar con tu presencia y celebrar este día tan especial a nuestro lado."
@@ -267,9 +264,9 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       </div>
     </div>
 
-    <div style="display:flex;gap:10px;width:100%;margin-bottom:20px;">
-      <img src="assets/3.jpg" class="clickable-photo anim-el fade-in-left" onclick="openLightbox(this.src)" style="flex:1;height:200px" alt="Momento 1">
-      <img src="assets/4.jpg" class="clickable-photo anim-el fade-in-right" onclick="openLightbox(this.src)" style="flex:1;height:200px" alt="Momento 2">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;margin-bottom:20px;">
+      <img src="assets/3.jpg" class="clickable-photo anim-el fade-in-up" onclick="openLightbox(this.src)" style="width:85%;height:auto;object-fit:cover" alt="Momento 1">
+      <img src="assets/4.jpg" class="clickable-photo anim-el fade-in-up" onclick="openLightbox(this.src)" style="width:100%;height:auto;object-fit:cover" alt="Momento 2">
     </div>
 
     <h2 class="anim-el track-in" style="font-size:2rem;margin-top:40px">ITINERARIO</h2>
@@ -304,13 +301,6 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <p class="dress-code-title">CÓDIGO DE VESTIMENTA</p>
       <h2 class="dress-code-main">Formal</h2>
       <p style="font-size:.95rem;font-style:italic;opacity:.9;line-height:1.6">Nos encantará verlos lucir espectaculares en esta gran noche.</p>
-    </div>
-
-    <div class="no-kids-block anim-el blur-in">
-      <p style="font-size:1rem;font-style:italic;line-height:1.6;text-align:center">
-        <i class="fa-solid fa-user-group" style="color:var(--gold);font-size:1.5rem;display:block;margin-bottom:12px"></i>
-        Queremos que esta velada sea una escapada especial <b style="color:var(--main-dark)">solo para los adultos</b>, agradecemos profundamente su comprensión.
-      </p>
     </div>
 
     <h2 class="anim-el track-in" style="font-size:2rem;margin-top:20px">MESA DE REGALOS</h2>
@@ -362,7 +352,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <p style="font-family:var(--font-script);font-size:2.5rem;color:var(--gold);margin-bottom:10px;text-align:center">Buenos Deseos</p>
       <p style="font-size:.9rem;text-align:center;margin-bottom:25px">Nos encantaría atesorar tus palabras. Déjanos un mensaje para recordar este día por siempre.</p>
       <form id="wishesForm" onsubmit="return false">
-        <div class="form-group-ed"><textarea id="wishesText" rows="3" required placeholder="Con cariño para Eduardo y Ana Laura..."></textarea></div>
+        <div class="form-group-ed"><textarea id="wishesText" rows="3" required placeholder="Con cariño para Eduardo y Laura..."></textarea></div>
         <button type="button" onclick="sendWishes()" class="btn" style="width:100%;font-size:.85rem;padding:15px"><i class="fa-solid fa-paper-plane"></i> ENVIAR MENSAJE</button>
       </form>
     </div>
@@ -480,7 +470,7 @@ function sendRSVP(){
   }else{
     const nombre=document.getElementById('rsvpNombre').value.trim(),asis=document.getElementById('rsvpAsistencia').value;
     if(!nombre||!asis){alert("Por favor, completa tu nombre y estado de asistencia.");return}
-    mensaje=`Hola, soy *${nombre}*.\n\nQuiero confirmar mi respuesta a la boda de Eduardo y Ana Laura: *${asis}*\n\n`;
+    mensaje=`Hola, soy *${nombre}*.\n\nQuiero confirmar mi respuesta a la boda de Eduardo y Laura: *${asis}*\n\n`;
   }
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`,'_blank');
 }
@@ -493,15 +483,15 @@ function sendWishes(){
   }
   const w=document.getElementById('wishesText').value.trim();
   if(!w){alert("Por favor, escribe un mensaje primero.");return}
-  const m=`¡Hola Eduardo y Ana Laura! Les dejo este mensaje para su libro de firmas:\n\n"${w}"`;
+  const m=`¡Hola Eduardo y Laura! Les dejo este mensaje para su libro de firmas:\n\n"${w}"`;
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(m)}`,'_blank');
 }
 
 // 6. ICS (27 Feb 2027, 6:30 p.m. hora México CST = 00:30 UTC del día siguiente)
 function downloadICS(){
-  const cal=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Boda Eduardo y Ana Laura//ES\nBEGIN:VEVENT\nDTSTART:20270228T003000Z\nDTEND:20270228T070000Z\nSUMMARY:Boda de Eduardo y Ana Laura\nLOCATION:Antonella Jardín Boutique\nDESCRIPTION:¡Acompáñanos a celebrar nuestra boda! Ceremonia Civil a las 6:30 PM.\nEND:VEVENT\nEND:VCALENDAR`;
+  const cal=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Boda Eduardo y Laura//ES\nBEGIN:VEVENT\nDTSTART:20270228T003000Z\nDTEND:20270228T070000Z\nSUMMARY:Boda de Eduardo y Laura\nLOCATION:Antonella Jardín Boutique\nDESCRIPTION:¡Acompáñanos a celebrar nuestra boda! Ceremonia Civil a las 6:30 PM.\nEND:VEVENT\nEND:VCALENDAR`;
   const url=URL.createObjectURL(new Blob([cal],{type:'text/calendar;charset=utf-8'}));
-  const a=document.createElement('a');a.href=url;a.download='Boda_Eduardo_y_Ana_Laura.ics';
+  const a=document.createElement('a');a.href=url;a.download='Boda_Eduardo_y_Laura.ics';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
 }
 </script>
