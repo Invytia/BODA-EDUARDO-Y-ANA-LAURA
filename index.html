@@ -48,9 +48,11 @@ i.fa-solid,i.fa-regular,i.fa-brands{display:inline-block;line-height:1}
 .calendar-day.highlight{animation:pulseRing 2s infinite}
 .timeline-icon{animation:pulseRing 3s infinite}
 .timeline-section::before{transform-origin:top;animation:lineGrow 2.5s var(--ease) both}
+.story-timeline::before{transform-origin:top;animation:lineGrow 2.5s var(--ease) both}
 
-/* ===== SOBRE BLANCO ===== */
-#envelope-screen{position:fixed;inset:0;height:100vh;background:#060608;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s ease}
+/* ===== SOBRE BLANCO (con imagen de fondo) ===== */
+#envelope-screen{position:fixed;inset:0;height:100vh;background:#060608 url('assets/fondo.jpg') center center/cover no-repeat;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s ease}
+#envelope-screen::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.25);z-index:1;pointer-events:none}
 .envelope-wrapper{position:relative;width:340px;height:230px;z-index:2;cursor:pointer;perspective:1200px;transition:transform .4s ease;animation:floatY 3.5s ease-in-out infinite}
 .envelope-wrapper:hover{transform:scale(1.05)}
 .envelope-body{position:absolute;inset:0;background:#FFFFFF;border-radius:4px;box-shadow:0 15px 40px rgba(0,0,0,.6);overflow:hidden}
@@ -60,7 +62,7 @@ i.fa-solid,i.fa-regular,i.fa-brands{display:inline-block;line-height:1}
 .envelope-wrapper.open{animation:none}
 .envelope-wrapper.open .envelope-flap{transform:rotateX(180deg);z-index:1;filter:none}
 .envelope-wrapper.open .seal{opacity:0}
-.envelope-text{position:relative;z-index:2;color:var(--gold);font-family:var(--font-sans);font-size:.85rem;letter-spacing:4px;margin-top:50px;text-transform:uppercase;animation:pulseText 2.5s infinite}
+.envelope-text{position:relative;z-index:2;color:var(--gold);font-family:var(--font-sans);font-size:.85rem;letter-spacing:4px;margin-top:50px;text-transform:uppercase;animation:pulseText 2.5s infinite;text-shadow:0 2px 8px rgba(0,0,0,.7)}
 
 /* Audio */
 #audio-btn{position:fixed;bottom:25px;right:25px;background:var(--ink);color:var(--gold);border:1px solid var(--gold);border-radius:50%;width:55px;height:55px;font-size:1.2rem;cursor:pointer;z-index:9000;box-shadow:0 4px 15px rgba(0,0,0,.6);transition:all .3s;display:none;align-items:center;justify-content:center}
@@ -81,11 +83,13 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .names-container{display:flex;flex-direction:column;align-items:center;line-height:1;margin:5px 0 15px}
 .names-container span.name{font-family:var(--font-title);font-size:3.5rem;letter-spacing:1px}
 .names-container span.ampersand{font-family:var(--font-script);font-size:3.5rem;margin:-10px 0 -15px;color:var(--gold);z-index:2;display:block}
-.welcome-phrase{font-size:.95rem;line-height:1.6;margin:15px 0 25px;font-style:italic}
+/* Mensaje especial: más grande y con la tipografía de "Buenos Deseos" */
+.welcome-phrase{font-family:var(--font-script);font-size:1.75rem;line-height:1.5;margin:15px 0 25px;font-style:normal;color:var(--main-dark)}
 .parents-section{margin:30px 0;width:100%}
 .parents-group{margin-bottom:25px}
 .parents-group h4{font-family:var(--font-sans);font-size:.75rem;letter-spacing:2px;color:var(--gold);margin-bottom:8px;text-transform:uppercase;font-weight:600}
 .parents-group p{font-size:1rem;line-height:1.7;font-style:italic}
+.blessing-title{font-family:var(--font-sans);font-size:.8rem;letter-spacing:2px;color:var(--gold);margin-bottom:25px;text-transform:uppercase;font-weight:600}
 .save-date-title{font-family:var(--font-sans);font-size:.85rem;letter-spacing:3px;margin:30px 0 5px;color:var(--main-dark)}
 .save-date-date{font-family:var(--font-title);font-size:clamp(2.5rem,6vw,3.5rem);margin-bottom:5px;white-space:nowrap}
 .calendar-wrapper{width:100%;max-width:320px;margin:25px auto;font-family:var(--font-sans);font-size:.85rem}
@@ -117,10 +121,31 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .timeline-time{font-family:var(--font-sans);font-weight:600;font-size:.95rem;color:var(--gold);letter-spacing:1px}
 .timeline-event{font-family:var(--font-title);font-size:1.15rem;color:var(--main-dark);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
 
+/* Línea del tiempo: Dos almas, una historia */
+.story-timeline{width:100%;position:relative;text-align:left;margin-bottom:40px;padding:10px 0}
+.story-timeline::before{content:'';position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:rgba(201,169,106,.4)}
+.story-item{position:relative;padding-left:46px;margin-bottom:40px;min-height:90px}
+.story-dot{position:absolute;left:0;top:34px;width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px var(--card)}
+.story-year{position:absolute;left:46px;top:-14px;font-family:var(--font-title);font-size:4.2rem;line-height:1;color:rgba(201,169,106,.16);pointer-events:none;user-select:none}
+.story-num{position:relative;z-index:1;font-family:var(--font-sans);font-size:.7rem;letter-spacing:3px;color:var(--gold);margin-bottom:6px;padding-top:6px}
+.story-title{position:relative;z-index:1;font-family:var(--font-title);font-size:1.6rem;line-height:1.25;color:var(--main-dark);margin-bottom:10px}
+.story-text{position:relative;z-index:1;font-size:.98rem;line-height:1.7;font-style:italic}
+.story-photo{padding-left:46px;margin-bottom:40px}
+.story-photo img{width:100%;height:auto;display:block;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+
 /* Vestimenta y Detalles */
 .satin-black{background:linear-gradient(135deg,#000 0%,#1c1c22 25%,#000 50%,#17171d 75%,#000 100%);color:var(--white);width:calc(100% + 60px);margin:0 -30px 40px;padding:50px 30px;border-top:1px solid rgba(201,169,106,.4);border-bottom:1px solid rgba(201,169,106,.4);box-shadow:inset 0 0 50px rgba(0,0,0,.9)}
 .dress-code-title{font-family:var(--font-sans);font-size:.8rem;letter-spacing:4px;margin-bottom:15px;color:var(--gold-light);font-weight:500}
 .dress-code-main{font-size:2.8rem;margin-bottom:10px;line-height:1.1}
+.dress-reserved{margin-top:22px;padding-top:20px;border-top:1px solid rgba(201,169,106,.35);font-family:var(--font-sans);font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);line-height:1.8}
+
+/* Información importante */
+.info-list{width:100%;text-align:left;margin-bottom:40px}
+.info-item{display:flex;align-items:flex-start;gap:20px;padding:26px 0;border-bottom:1px solid rgba(201,169,106,.25)}
+.info-item:last-child{border-bottom:none}
+.info-icon{flex-shrink:0;width:34px;text-align:center;font-size:1.4rem;color:var(--gold);margin-top:6px}
+.info-title{font-family:var(--font-title);font-size:1.5rem;color:var(--main-dark);margin-bottom:6px}
+.info-text{font-family:var(--font-sans);font-size:.9rem;line-height:1.7;color:var(--text-color)}
 
 /* Formularios */
 .editorial-form-box{width:100%;background:var(--card-2);padding:40px 30px;border-radius:2px;border:1px solid rgba(201,169,106,.3);box-shadow:0 10px 30px rgba(0,0,0,.4);margin-top:20px}
@@ -203,7 +228,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     </p>
 
     <div class="parents-section">
-      <p class="anim-el reveal-text" style="font-family:var(--font-script);font-size:2.2rem;color:var(--gold);margin-bottom:25px">Con la bendición de nuestros padres</p>
+      <p class="blessing-title anim-el reveal-text">Con la bendición de nuestros padres:</p>
       <div class="parents-group anim-el fade-in-left">
         <h4>Padres de la Novia</h4>
         <p>Felipe López Dávila<br>María Irene Hernández Martínez</p>
@@ -280,14 +305,60 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <div class="timeline-item anim-el fade-in-left"><div class="timeline-icon"><i class="fa-solid fa-moon"></i></div><div><div class="timeline-time">01:00 A.M.</div><div class="timeline-event">Fin del Evento</div></div></div>
     </div>
 
+    <!-- DOS ALMAS, UNA HISTORIA -->
+    <h2 class="anim-el track-in" style="font-size:1.8rem;margin-top:30px">DOS ALMAS, UNA HISTORIA</h2>
+    <div class="divider anim-el scale-in"><i class="fa-solid fa-infinity" style="font-size:.9rem"></i></div>
+
+    <div class="story-timeline">
+      <div class="story-item anim-el fade-in-left">
+        <span class="story-dot"></span>
+        <div class="story-year">2022</div>
+        <div class="story-num">01</div>
+        <h3 class="story-title">Nos encontramos</h3>
+        <p class="story-text">Y sin saberlo, el destino nos hizo uno.</p>
+      </div>
+
+      <div class="story-photo anim-el fade-in-left">
+        <img src="assets/21.jpg" class="clickable-photo" onclick="openLightbox(this.src)" alt="Nuestra historia 1">
+      </div>
+
+      <div class="story-item anim-el fade-in-left">
+        <span class="story-dot"></span>
+        <div class="story-year">2024</div>
+        <div class="story-num">02</div>
+        <h3 class="story-title">Me prometió su amor</h3>
+        <p class="story-text">En un pequeño anillo guardó su corazón entero.</p>
+      </div>
+
+      <div class="story-item anim-el fade-in-left">
+        <span class="story-dot"></span>
+        <div class="story-year">2026</div>
+        <div class="story-num">03</div>
+        <h3 class="story-title">Me pidió la vida</h3>
+        <p class="story-text">Me ofreció su eternidad, y yo le di mi SÍ para siempre.</p>
+      </div>
+
+      <div class="story-photo anim-el fade-in-left">
+        <img src="assets/22.jpg" class="clickable-photo" onclick="openLightbox(this.src)" alt="Nuestra historia 2">
+      </div>
+
+      <div class="story-item anim-el fade-in-left" style="margin-bottom:0">
+        <span class="story-dot"></span>
+        <div class="story-year">2027</div>
+        <div class="story-num">04</div>
+        <h3 class="story-title">Nos diremos SÍ para siempre</h3>
+        <p class="story-text">El día en que nuestro amor dejará de ser promesa y se volverá eternidad.</p>
+      </div>
+    </div>
+
     <img src="assets/5.jpg" class="clickable-photo anim-el zoom-out" onclick="openLightbox(this.src)" alt="Momento 3">
   </div>
 
   <!-- ===== COLUMNA 3 ===== -->
   <div class="column">
-    <h2 class="anim-el track-in" style="font-size:2.2rem;margin-bottom:5px">NUESTRA HISTORIA</h2>
+    <h2 class="anim-el track-in" style="font-size:2.2rem;margin-bottom:5px">DÓNDE VIVE EL AMOR</h2>
     <div class="divider anim-el scale-in"><i class="fa-solid fa-camera" style="font-size:.9rem"></i></div>
-    <p class="anim-el blur-in" style="font-size:.95rem;font-style:italic;margin-bottom:15px">Coleccionando momentos inolvidables...</p>
+    <p class="anim-el blur-in" style="font-size:.95rem;font-style:italic;margin-bottom:15px">Capítulo uno: el para siempre</p>
 
     <div class="gallery-grid">
       <img src="assets/6.jpg" class="clickable-photo anim-el fade-in-left" style="height:190px" onclick="openLightbox(this.src)" alt="Historia">
@@ -301,6 +372,27 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <p class="dress-code-title">CÓDIGO DE VESTIMENTA</p>
       <h2 class="dress-code-main">Formal</h2>
       <p style="font-size:.95rem;font-style:italic;opacity:.9;line-height:1.6">Nos encantará verlos lucir espectaculares en esta gran noche.</p>
+      <p class="dress-reserved">El blanco y el morado<br>están reservados</p>
+    </div>
+
+    <!-- INFORMACIÓN IMPORTANTE -->
+    <div class="info-list">
+      <div class="info-item anim-el fade-in-left">
+        <div class="info-icon"><i class="fa-solid fa-car-side"></i></div>
+        <div><h3 class="info-title">Estacionamiento</h3><p class="info-text">Contaremos con estacionamiento y personal de apoyo.</p></div>
+      </div>
+      <div class="info-item anim-el fade-in-left">
+        <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+        <div><h3 class="info-title">Llega con tiempo</h3><p class="info-text">Te sugerimos llegar 20 minutos antes.</p></div>
+      </div>
+      <div class="info-item anim-el fade-in-left">
+        <div class="info-icon"><i class="fa-solid fa-tree"></i></div>
+        <div><h3 class="info-title">Evento en jardín</h3><p class="info-text">La recepción se realizará al aire libre.</p></div>
+      </div>
+      <div class="info-item anim-el fade-in-left">
+        <div class="info-icon"><i class="fa-solid fa-umbrella"></i></div>
+        <div><h3 class="info-title">Plan para lluvia</h3><p class="info-text">Contamos con un área techada para tu comodidad.</p></div>
+      </div>
     </div>
 
     <h2 class="anim-el track-in" style="font-size:2rem;margin-top:20px">MESA DE REGALOS</h2>
@@ -393,6 +485,7 @@ document.addEventListener("DOMContentLoaded",function(){
   document.querySelectorAll('.timeline-section').forEach(s=>s.querySelectorAll('.anim-el').forEach((el,i)=>el.style.transitionDelay=(i*0.12)+'s'));
   document.querySelectorAll('.gallery-grid').forEach(g=>g.querySelectorAll('.anim-el').forEach((el,i)=>el.style.transitionDelay=(i*0.15)+'s'));
   document.querySelectorAll('.parents-section .anim-el').forEach((el,i)=>{if(!el.style.transitionDelay)el.style.transitionDelay=(i*0.2)+'s'});
+  document.querySelectorAll('.info-list .anim-el').forEach((el,i)=>el.style.transitionDelay=(i*0.12)+'s');
 
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
