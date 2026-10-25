@@ -83,7 +83,6 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .names-container{display:flex;flex-direction:column;align-items:center;line-height:1;margin:5px 0 15px}
 .names-container span.name{font-family:var(--font-title);font-size:3.5rem;letter-spacing:1px}
 .names-container span.ampersand{font-family:var(--font-script);font-size:3.5rem;margin:-10px 0 -15px;color:var(--gold);z-index:2;display:block}
-/* Mensaje especial: más grande y con la tipografía de "Buenos Deseos" */
 .welcome-phrase{font-family:var(--font-script);font-size:1.75rem;line-height:1.5;margin:15px 0 25px;font-style:normal;color:var(--main-dark)}
 .parents-section{margin:30px 0;width:100%}
 .parents-group{margin-bottom:25px}
@@ -130,7 +129,7 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .story-num{position:relative;z-index:1;font-family:var(--font-sans);font-size:.7rem;letter-spacing:3px;color:var(--gold);margin-bottom:6px;padding-top:6px}
 .story-title{position:relative;z-index:1;font-family:var(--font-title);font-size:1.6rem;line-height:1.25;color:var(--main-dark);margin-bottom:10px}
 .story-text{position:relative;z-index:1;font-size:.98rem;line-height:1.7;font-style:italic}
-.story-photo{padding-left:46px;margin-bottom:40px}
+.story-photo{padding-left:46px;margin-bottom:40px;overflow:hidden}
 .story-photo img{width:100%;height:auto;display:block;box-shadow:0 12px 30px rgba(0,0,0,.5)}
 
 /* Vestimenta y Detalles */
@@ -138,6 +137,10 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .dress-code-title{font-family:var(--font-sans);font-size:.8rem;letter-spacing:4px;margin-bottom:15px;color:var(--gold-light);font-weight:500}
 .dress-code-main{font-size:2.8rem;margin-bottom:10px;line-height:1.1}
 .dress-reserved{margin-top:22px;padding-top:20px;border-top:1px solid rgba(201,169,106,.35);font-family:var(--font-sans);font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);line-height:1.8}
+
+/* Círculos de color reservado */
+.color-circles-wrapper {display: flex;justify-content: center;gap: 15px;margin-top: 15px;}
+.color-circle {width: 35px;height: 35px;border-radius: 50%;border: 1px solid rgba(201, 169, 106, 0.5);box-shadow: 0 5px 15px rgba(0,0,0,0.6);}
 
 /* Información importante */
 .info-list{width:100%;text-align:left;margin-bottom:40px}
@@ -165,8 +168,8 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .radio-ed-label input[type="radio"]{accent-color:var(--gold)}
 
 /* Fotos y Lightbox */
-.clickable-photo{width:100%;height:auto;object-fit:cover;border-radius:2px;cursor:zoom-in;transition:transform .3s}
-.clickable-photo:hover{transform:scale(1.02)}
+.clickable-photo{width:100%;height:auto;object-fit:cover;border-radius:2px;cursor:zoom-in;transition:transform .5s var(--ease), box-shadow .5s var(--ease)}
+.clickable-photo:hover{transform:scale(1.05);box-shadow:0 15px 35px rgba(0,0,0,.7)}
 .photo-margin{margin:25px 0}
 .gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:30px 0;width:100%}
 #lightbox{position:fixed;inset:0;height:100vh;background:rgba(0,0,0,.96);z-index:10000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s}
@@ -228,7 +231,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     </p>
 
     <div class="parents-section">
-      <p class="blessing-title anim-el reveal-text">Con la bendición de nuestros padres:</p>
+      <p class="blessing-title anim-el reveal-text">CON LA BENDICIÓN DE NUESTROS PADRES:</p>
       <div class="parents-group anim-el fade-in-left">
         <h4>Padres de la Novia</h4>
         <p>Felipe López Dávila<br>María Irene Hernández Martínez</p>
@@ -318,16 +321,16 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
         <p class="story-text">Y sin saberlo, el destino nos hizo uno.</p>
       </div>
 
-      <div class="story-photo anim-el fade-in-left">
-        <img src="assets/21.jpg" class="clickable-photo" onclick="openLightbox(this.src)" alt="Nuestra historia 1">
-      </div>
-
       <div class="story-item anim-el fade-in-left">
         <span class="story-dot"></span>
         <div class="story-year">2024</div>
         <div class="story-num">02</div>
         <h3 class="story-title">Me prometió su amor</h3>
         <p class="story-text">En un pequeño anillo guardó su corazón entero.</p>
+      </div>
+
+      <div class="story-photo anim-el blur-in">
+        <img src="assets/21.jpg" class="clickable-photo" onclick="openLightbox(this.src)" alt="Nuestra historia 1">
       </div>
 
       <div class="story-item anim-el fade-in-left">
@@ -338,7 +341,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
         <p class="story-text">Me ofreció su eternidad, y yo le di mi SÍ para siempre.</p>
       </div>
 
-      <div class="story-photo anim-el fade-in-left">
+      <div class="story-photo anim-el blur-in">
         <img src="assets/22.jpg" class="clickable-photo" onclick="openLightbox(this.src)" alt="Nuestra historia 2">
       </div>
 
@@ -373,14 +376,17 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <h2 class="dress-code-main">Formal</h2>
       <p style="font-size:.95rem;font-style:italic;opacity:.9;line-height:1.6">Nos encantará verlos lucir espectaculares en esta gran noche.</p>
       <p class="dress-reserved">El blanco y el morado<br>están reservados</p>
+      
+      <!-- Círculos de color agregado aquí -->
+      <div class="color-circles-wrapper anim-el fade-in-up">
+        <div class="color-circle" style="background-color: #FFFFFF;" title="Blanco"></div>
+        <div class="color-circle" style="background-color: #5A2A82;" title="Morado Oscuro"></div>
+        <div class="color-circle" style="background-color: #B488CE;" title="Morado Claro"></div>
+      </div>
     </div>
 
     <!-- INFORMACIÓN IMPORTANTE -->
     <div class="info-list">
-      <div class="info-item anim-el fade-in-left">
-        <div class="info-icon"><i class="fa-solid fa-car-side"></i></div>
-        <div><h3 class="info-title">Estacionamiento</h3><p class="info-text">Contaremos con estacionamiento y personal de apoyo.</p></div>
-      </div>
       <div class="info-item anim-el fade-in-left">
         <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
         <div><h3 class="info-title">Llega con tiempo</h3><p class="info-text">Te sugerimos llegar 20 minutos antes.</p></div>
