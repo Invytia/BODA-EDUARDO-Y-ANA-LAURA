@@ -31,10 +31,11 @@ i.fa-solid,i.fa-regular,i.fa-brands{display:inline-block;line-height:1}
 .blur-in{filter:blur(14px);transform:translateY(20px);transition:opacity 1.4s var(--ease),filter 1.4s var(--ease),transform 1.4s var(--ease)}
 .rotate-in{transform:rotate(-8deg) scale(.9);transition:opacity 1.3s var(--ease),transform 1.3s var(--ease)}
 .flip-in{transform:perspective(800px) rotateX(35deg) translateY(30px);transform-origin:top;transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
-.reveal-text{clip-path:inset(0 100% 0 0);transition:opacity .6s ease,clip-path 1.5s var(--ease)}
+/* Fix para navegadores iOS/Safari con webkit-clip-path */
+.reveal-text{-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);transition:opacity .6s ease,-webkit-clip-path 1.5s var(--ease),clip-path 1.5s var(--ease)}
 .track-in{letter-spacing:14px;filter:blur(8px);transition:opacity 1.6s var(--ease),letter-spacing 1.8s var(--ease),filter 1.6s var(--ease)}
 .fade-in-up.visible,.fade-in-down.visible,.fade-in-left.visible,.fade-in-right.visible,.scale-in.visible,.zoom-out.visible,.blur-in.visible,.rotate-in.visible,.flip-in.visible{opacity:1;transform:none;filter:none}
-.reveal-text.visible{opacity:1;clip-path:inset(0 0 0 0)}
+.reveal-text.visible{opacity:1;-webkit-clip-path:inset(0 0 0 0);clip-path:inset(0 0 0 0)}
 .track-in.visible{opacity:1;letter-spacing:1px;filter:none}
 
 @keyframes pulseText{0%,100%{opacity:.5}50%{opacity:1}}
@@ -231,7 +232,8 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     </p>
 
     <div class="parents-section">
-      <p class="blessing-title anim-el reveal-text">CON LA BENDICIÓN DE NUESTROS PADRES:</p>
+      <!-- SOLUCIÓN AQUÍ: Se cambió "reveal-text" por "fade-in-up" -->
+      <p class="blessing-title anim-el fade-in-up">CON LA BENDICIÓN DE NUESTROS PADRES:</p>
       <div class="parents-group anim-el fade-in-left">
         <h4>Padres de la Novia</h4>
         <p>Felipe López Dávila<br>María Irene Hernández Martínez</p>
