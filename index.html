@@ -31,7 +31,6 @@ i.fa-solid,i.fa-regular,i.fa-brands{display:inline-block;line-height:1}
 .blur-in{filter:blur(14px);transform:translateY(20px);transition:opacity 1.4s var(--ease),filter 1.4s var(--ease),transform 1.4s var(--ease)}
 .rotate-in{transform:rotate(-8deg) scale(.9);transition:opacity 1.3s var(--ease),transform 1.3s var(--ease)}
 .flip-in{transform:perspective(800px) rotateX(35deg) translateY(30px);transform-origin:top;transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
-/* Fix para navegadores iOS/Safari con webkit-clip-path */
 .reveal-text{-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);transition:opacity .6s ease,-webkit-clip-path 1.5s var(--ease),clip-path 1.5s var(--ease)}
 .track-in{letter-spacing:14px;filter:blur(8px);transition:opacity 1.6s var(--ease),letter-spacing 1.8s var(--ease),filter 1.6s var(--ease)}
 .fade-in-up.visible,.fade-in-down.visible,.fade-in-left.visible,.fade-in-right.visible,.scale-in.visible,.zoom-out.visible,.blur-in.visible,.rotate-in.visible,.flip-in.visible{opacity:1;transform:none;filter:none}
@@ -161,6 +160,9 @@ h1,h2,h3{font-family:var(--font-title);font-weight:400;color:var(--main-dark)}
 .form-group-ed select option{background:var(--card-2);color:var(--main-dark)}
 .form-group-ed input:focus,.form-group-ed select:focus,.form-group-ed textarea:focus{border-bottom-color:var(--gold)}
 #paseSection{padding-bottom:20px;border-bottom:1px dashed rgba(201,169,106,.5);margin-bottom:25px}
+.pase-info{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:8px}
+.pase-info p{font-size:1.1rem}
+.pase-info span{font-weight:bold;color:var(--gold);font-size:1.4rem}
 .btn-whatsapp{width:100%;background:var(--gold);color:var(--ink);border:1px solid var(--gold);font-size:.85rem;font-weight:600;padding:15px;letter-spacing:2px;border-radius:2px;display:flex;justify-content:center;align-items:center;gap:10px;cursor:pointer;transition:all .3s;text-transform:uppercase;font-family:var(--font-sans)}
 .btn-whatsapp:hover{background:transparent;color:var(--gold)}
 .deadline-text{font-family:var(--font-sans);font-size:.7rem;text-align:center;margin-top:25px;letter-spacing:2px}
@@ -232,7 +234,6 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     </p>
 
     <div class="parents-section">
-      <!-- SOLUCIÓN AQUÍ: Se cambió "reveal-text" por "fade-in-up" -->
       <p class="blessing-title anim-el fade-in-up">CON LA BENDICIÓN DE NUESTROS PADRES:</p>
       <div class="parents-group anim-el fade-in-left">
         <h4>Padres de la Novia</h4>
@@ -382,8 +383,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <h2 class="dress-code-main">Formal</h2>
       <p style="font-size:.95rem;font-style:italic;opacity:.9;line-height:1.6">Nos encantará verlos lucir espectaculares en esta gran noche.</p>
       <p class="dress-reserved">El blanco y el morado<br>están reservados</p>
-      
-      <!-- Círculos de color agregado aquí -->
+
       <div class="color-circles-wrapper anim-el fade-in-up">
         <div class="color-circle" style="background-color: #FFFFFF;" title="Blanco"></div>
         <div class="color-circle" style="background-color: #5A2A82;" title="Morado Oscuro"></div>
@@ -427,7 +427,10 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
       <div id="paseSection" style="display:none">
         <p style="font-family:var(--font-sans);font-size:.75rem;letter-spacing:2px;color:var(--gold);margin-bottom:5px;text-transform:uppercase">Pase Personal</p>
         <h2 id="guestNameDisplay" style="font-size:1.8rem;margin:5px 0">Invitado</h2>
-        <p style="font-size:1.1rem">Lugares reservados: <span id="guestPassesDisplay" style="font-weight:bold;color:var(--gold);font-size:1.4rem"></span></p>
+        <div class="pase-info">
+          <p>Lugares reservados: <span id="guestPassesDisplay"></span></p>
+          <p id="guestMesaWrap" style="display:none">Mesa: <span id="guestMesaDisplay"></span></p>
+        </div>
         <p style="font-size:.85rem;line-height:1.5;margin-top:15px;font-style:italic">
           Queremos compartir este día tan especial con las personas que amamos. Por ello, los lugares han sido reservados especialmente para cada invitado.<br>
           <span style="font-size:.75rem;opacity:.7">(Los boletos son únicos e intransferibles, agradecemos su comprensión, gracias)</span>
@@ -489,11 +492,82 @@ function openLightbox(src){document.getElementById('lightbox-img').src=src;docum
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active')}
 
 // 2. WHATSAPP (Dejar espacio para colocar el número más adelante)
-const telefonoWhatsApp = ""; // <-- PONER EL NÚMERO AQUÍ CUANDO EL CLIENTE LO CONFIRME
+const telefonoWhatsApp = "528125982196"; // WhatsApp de confirmación (52 = México + 10 dígitos)
 
-// 3. INICIALIZACIÓN
+// 3. LISTA DE INVITADOS
+// Cada fila = una invitación. El ID es la posición (1, 2, 3...), igual que en el Excel.
+// Formato: [nombre de familia ("" si no tiene), [nombres de invitados], pases, mesa]
+const FILAS=[
+/*1*/["Familia Nieto Sotelo",["Agustín Nieto Hernández","Francisca Sotelo Rodríguez","Hinata Sophia Nieto"],3,6],
+/*2*/["",["Andrea Nieto Sotelo"],1,6],
+/*3*/["Familia Nieto Garza",["Gustavo Nieto Sotelo","Valeria Garza González"],2,6],
+/*4*/["",["Oscar Alán Arellano Marines"],2,9],
+/*5*/["",["Ahlan Alberto Vázquez Puente"],3,9],
+/*6*/["Familia Nieto Rangel",["Gregorio Nieto Hernández","María Cristina Rangel"],2,6],
+/*7*/["",["Brenda Elizabeth Nieto Rangel"],3,7],
+/*8*/["",["Ariadna Abigail Nieto Rangel"],1,6],
+/*9*/["",["Ismael Nieto Rangel"],1,6],
+/*10*/["",["Cristina Herrada"],2,9],
+/*11*/["",["Juan Daniel Nieto Hernández"],2,7],
+/*12*/["",["Tomasa Nieto Hernández"],2,7],
+/*13*/["",["Ángel Ernesto Nieto Barcenas"],2,8],
+/*14*/["",["María Fernanda Nieto Barcenas"],2,8],
+/*15*/["",["Josué Mizael Nieto Barcenas"],2,8],
+/*16*/["",["Porfirio Alonso Salas de León"],1,9],
+/*17*/["",["Juan Nieto Martin"],2,7],
+/*18*/["",["Israel Fragoso Guerrero"],2,8],
+/*19*/["",["Luis Gerardo Olvera"],1,3],
+/*20*/["",["Ricardo Rivera Tamez"],2,9],
+/*21*/["",["Javier Ramos Soto"],2,8],
+/*22*/["",["Jaime Humberto Rangel Gaspar"],2,10],
+/*23*/["",["Felipe López Dávila"],1,1],
+/*24*/["",["Emilio Alonso López Hernández"],1,1],
+/*25*/["Familia López Estrada",["Luis Felipe López Hernández","Xitlally Claribel Estrada Balderas","Dariana Arlen López Estrada","Luis Fernando López Estrada"],4,1],
+/*26*/["",["Marcela Balderas Méndez"],1,1],
+/*27*/["",["María Irene Hernández Martínez"],1,1],
+/*28*/["",["Yolanda Irais Ponce"],2,1],
+/*29*/["",["Sanjuanita Guadalupe Puerta Galarza"],2,2],
+/*30*/["",["Kariana Merlos Ortiz"],2,2],
+/*31*/["",["Juany Machado"],2,4],
+/*32*/["",["Mauricio Fabián Guerrero Cantú"],2,4],
+/*33*/["",["Victor Alberto Lara Vázquez"],4,2],
+/*34*/["Familia Torres Fuentes",["Elvia Mariana Fuentes Castaño","Erick David Torres Sánchez","Allison Ivonne Torres Fuentes"],3,3],
+/*35*/["",["Ericka Yadira González González"],2,3],
+/*36*/["Familia Rivera Hernández",["Melissa Suset Hernández","Pedro Rivera","Suset Michelle Rivera Hernández","Gibran Ramsés Rivera Hernández"],4,3],
+/*37*/["",["Rosalía Hernández Hernández"],1,4],
+/*38*/["Familia Amaro Ramírez",["Ana Karen Ramírez Garza","Victor Hugo Amaro Soria"],2,2],
+/*39*/["",["Nicolás López Dávila","María Ruiz Pérez"],2,5],
+/*40*/["Familia Rodríguez López",["María Magdalena López Dávila","José Rutilo Rodríguez"],2,5],
+/*41*/["",["José Everardo Rodríguez López"],4,10],
+/*42*/["",["Perla Cecilia López Ruiz"],4,10],
+/*43*/["",["Fernando López Dávila"],1,5],
+/*44*/["",["María de Lourdes López Dávila"],2,5],
+/*45*/["",["Eduardo López Dávila"],2,5],
+/*46*/["",["Mónica Elizabeth Garza Tostado"],1,4],
+/*47*/["",["Daniel Jasso Alvarado"],2,4]
+];
+
+// Construye el objeto del invitado a partir de una fila
+function construirInvitado(f){
+  const [familia,nombres,pases,mesa]=f;
+  let titulo=familia;
+  if(!titulo){
+    titulo=nombres[0];
+    const acomp=pases-1; // acompañantes además del titular
+    if(acomp===1)titulo+=" y acompañante";
+    else if(acomp>1)titulo+=" y acompañantes";
+  }
+  // Lista para confirmar: nombres + lugares sin nombre como "Acompañante"
+  const lista=nombres.slice();
+  const libres=pases-nombres.length;
+  for(let k=1;k<=libres;k++)lista.push(libres>1?`Acompañante ${k}`:"Acompañante");
+  return {inv:titulo,pases:pases,mesa:mesa,nombres:lista};
+}
+const listaInvitados={};
+FILAS.forEach((f,i)=>{listaInvitados[i+1]=construirInvitado(f)});
+
+// 4. INICIALIZACIÓN
 document.addEventListener("DOMContentLoaded",function(){
-  // Retrasos escalonados automáticos
   document.querySelectorAll('.timeline-section').forEach(s=>s.querySelectorAll('.anim-el').forEach((el,i)=>el.style.transitionDelay=(i*0.12)+'s'));
   document.querySelectorAll('.gallery-grid').forEach(g=>g.querySelectorAll('.anim-el').forEach((el,i)=>el.style.transitionDelay=(i*0.15)+'s'));
   document.querySelectorAll('.parents-section .anim-el').forEach((el,i)=>{if(!el.style.transitionDelay)el.style.transitionDelay=(i*0.2)+'s'});
@@ -504,25 +578,24 @@ document.addEventListener("DOMContentLoaded",function(){
   },{threshold:.12});
   document.querySelectorAll('.anim-el').forEach(el=>observer.observe(el));
 
-  // LISTA DE INVITADOS
-  const listaInvitados={};
-
+  // Lectura de parámetros: ?id=n  (también acepta ?invitado=&pases=&nombres= como respaldo)
   const p=new URLSearchParams(window.location.search);
   const guestId=p.get('id');
-  let invitado=p.get('invitado'), pases=p.get('pases')||p.get('p'), nombresStr=p.get('nombres'), nombresArray=[];
+  let invitado=p.get('invitado'), pases=p.get('pases')||p.get('p'), mesa=p.get('mesa'), nombresStr=p.get('nombres'), nombresArray=[];
 
   if(guestId&&listaInvitados[guestId]){
-    invitado=listaInvitados[guestId].inv; pases=listaInvitados[guestId].pases; nombresArray=listaInvitados[guestId].nombres;
+    const g=listaInvitados[guestId];
+    invitado=g.inv; pases=g.pases; mesa=g.mesa; nombresArray=g.nombres;
   }else if(nombresStr){nombresArray=nombresStr.split(',')}
 
-  if(invitado&&pases){
+  if(pases){
     document.getElementById('paseSection').style.display='block';
-    document.getElementById('guestNameDisplay').textContent=invitado;
+    document.getElementById('guestNameDisplay').textContent=invitado||"Pase Especial";
     document.getElementById('guestPassesDisplay').textContent=pases;
-  }else if(pases){
-    document.getElementById('paseSection').style.display='block';
-    document.getElementById('guestNameDisplay').textContent="Pase Especial";
-    document.getElementById('guestPassesDisplay').textContent=pases;
+    if(mesa){
+      document.getElementById('guestMesaDisplay').textContent=mesa;
+      document.getElementById('guestMesaWrap').style.display='block';
+    }
   }
 
   if(nombresArray.length>0){
@@ -552,7 +625,7 @@ document.addEventListener("DOMContentLoaded",function(){
   },1000);
 });
 
-// 4. RSVP
+// 5. RSVP
 function sendRSVP(){
   if (!telefonoWhatsApp) {
     alert("El número de WhatsApp para confirmar asistencia aún no ha sido asignado por los novios.");
@@ -569,7 +642,8 @@ function sendRSVP(){
     });
     if(!todos){alert("Por favor, selecciona si asiste o no cada persona de la lista.");return}
     const inv=document.getElementById('guestNameDisplay').textContent;
-    mensaje=`¡Hola! Somos la familia / acompañantes de *${inv}* y aquí está nuestra confirmación:\n\n`;
+    const mesaTxt=document.getElementById('guestMesaDisplay').textContent;
+    mensaje=`¡Hola! Somos la familia / acompañantes de *${inv}*${mesaTxt?` (Mesa ${mesaTxt})`:''} y aquí está nuestra confirmación:\n\n`;
     if(ok.length)mensaje+=`✅ *Asistirán con gusto:*\n- ${ok.join('\n- ')}\n\n`;
     if(no.length)mensaje+=`❌ *Lamentablemente no podrán asistir:*\n- ${no.join('\n- ')}\n\n`;
   }else{
@@ -580,7 +654,7 @@ function sendRSVP(){
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`,'_blank');
 }
 
-// 5. BUENOS DESEOS
+// 6. BUENOS DESEOS
 function sendWishes(){
   if (!telefonoWhatsApp) {
     alert("El número de WhatsApp para enviar los deseos aún no ha sido asignado por los novios.");
@@ -592,7 +666,7 @@ function sendWishes(){
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(m)}`,'_blank');
 }
 
-// 6. ICS (27 Feb 2027, 6:30 p.m. hora México CST = 00:30 UTC del día siguiente)
+// 7. ICS (27 Feb 2027, 6:30 p.m. hora México CST = 00:30 UTC del día siguiente)
 function downloadICS(){
   const cal=`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Boda Eduardo y Laura//ES\nBEGIN:VEVENT\nDTSTART:20270228T003000Z\nDTEND:20270228T070000Z\nSUMMARY:Boda de Eduardo y Laura\nLOCATION:Antonella Jardín Boutique\nDESCRIPTION:¡Acompáñanos a celebrar nuestra boda! Ceremonia Civil a las 6:30 PM.\nEND:VEVENT\nEND:VCALENDAR`;
   const url=URL.createObjectURL(new Blob([cal],{type:'text/calendar;charset=utf-8'}));
