@@ -494,6 +494,16 @@ function closeLightbox(){document.getElementById('lightbox').classList.remove('a
 // 2. WHATSAPP (Dejar espacio para colocar el número más adelante)
 const telefonoWhatsApp = "528125982196"; // WhatsApp de confirmación (52 = México + 10 dígitos)
 
+// 2.1 GOOGLE SHEETS (pegar aquí la URL de la implementación de Apps Script: https://script.google.com/macros/s/XXXX/exec)
+const SHEETS_URL = ""; // <-- PEGAR URL DE APPS SCRIPT
+function enviarASheets(payload){
+  if(!SHEETS_URL)return; // si no hay URL, no hace nada y WhatsApp funciona igual
+  try{
+    fetch(SHEETS_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(()=>{});
+  }catch(e){}
+}
+window.invitadoActual=null;
+
 // 3. LISTA DE INVITADOS
 // Cada fila = una invitación. El ID es la posición (1, 2, 3...), igual que en el Excel.
 // Formato: [nombre de familia ("" si no tiene), [nombres de invitados], pases, mesa]
@@ -585,6 +595,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   if(guestId&&listaInvitados[guestId]){
     const g=listaInvitados[guestId];
+    window.invitadoActual={id:guestId,inv:g.inv,pases:g.pases,mesa:g.mesa};
     invitado=g.inv; pases=g.pases; mesa=g.mesa; nombresArray=g.nombres;
   }else if(nombresStr){nombresArray=nombresStr.split(',')}
 
@@ -646,10 +657,14 @@ function sendRSVP(){
     mensaje=`¡Hola! Somos la familia / acompañantes de *${inv}*${mesaTxt?` (Mesa ${mesaTxt})`:''} y aquí está nuestra confirmación:\n\n`;
     if(ok.length)mensaje+=`✅ *Asistirán con gusto:*\n- ${ok.join('\n- ')}\n\n`;
     if(no.length)mensaje+=`❌ *Lamentablemente no podrán asistir:*\n- ${no.join('\n- ')}\n\n`;
+    const ia=window.invitadoActual||{};
+    enviarASheets({tipo:'rsvp',id:ia.id||'',invitacion:inv,mesa:mesaTxt,pases:ia.pases||'',asistiran:ok,noAsisten:no});
   }else{
     const nombre=document.getElementById('rsvpNombre').value.trim(),asis=document.getElementById('rsvpAsistencia').value;
     if(!nombre||!asis){alert("Por favor, completa tu nombre y estado de asistencia.");return}
     mensaje=`Hola, soy *${nombre}*.\n\nQuiero confirmar mi respuesta a la boda de Eduardo y Laura: *${asis}*\n\n`;
+    const va=asis.indexOf('Sí')>-1;
+    enviarASheets({tipo:'rsvp',id:'',invitacion:nombre,mesa:'',pases:'',asistiran:va?[nombre]:[],noAsisten:va?[]:[nombre]});
   }
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}`,'_blank');
 }
@@ -662,6 +677,8 @@ function sendWishes(){
   }
   const w=document.getElementById('wishesText').value.trim();
   if(!w){alert("Por favor, escribe un mensaje primero.");return}
+  const ia=window.invitadoActual||{};
+  enviarASheets({tipo:'deseo',id:ia.id||'',invitacion:ia.inv||'',mensaje:w});
   const m=`¡Hola Eduardo y Laura! Les dejo este mensaje para su libro de firmas:\n\n"${w}"`;
   window.open(`https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(m)}`,'_blank');
 }
