@@ -420,7 +420,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     <a href="https://drive.google.com/drive/folders/1RGp10OePDFJd7CZncgsDeyWz1ZwIUf46?usp=sharing" target="_blank" class="btn anim-el fade-in-up" style="width:100%;margin-top:25px"><i class="fa-solid fa-cloud-arrow-up"></i> SUBIR MIS FOTOS</a>
 
     <!-- RSVP -->
-    <div class="editorial-form-box anim-el flip-in" style="margin-top:50px">
+    <div class="editorial-form-box" id="rsvp" style="margin-top:50px">
       <h2 class="rsvp-header">R.S.V.P.</h2>
       <p class="rsvp-subtitle">Confirmación de Asistencia</p>
 
@@ -455,7 +455,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
     </div>
 
     <!-- Buenos deseos -->
-    <div class="editorial-form-box anim-el flip-in" style="margin-top:30px">
+    <div class="editorial-form-box" style="margin-top:30px">
       <p style="font-family:var(--font-script);font-size:2.5rem;color:var(--gold);margin-bottom:10px;text-align:center">Buenos Deseos</p>
       <p style="font-size:.9rem;text-align:center;margin-bottom:25px">Nos encantaría atesorar tus palabras. Déjanos un mensaje para recordar este día por siempre.</p>
       <form id="wishesForm" onsubmit="return false">
@@ -575,12 +575,12 @@ document.addEventListener("DOMContentLoaded",function(){
 
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});
-  },{threshold:.12});
+  },{threshold:0,rootMargin:'0px 0px -6% 0px'});
   document.querySelectorAll('.anim-el').forEach(el=>observer.observe(el));
 
   // Lectura de parámetros: ?id=n  (también acepta ?invitado=&pases=&nombres= como respaldo)
   const p=new URLSearchParams(window.location.search);
-  const guestId=p.get('id');
+  const guestId=parseInt((p.get('id')||'').replace(/[^0-9]/g,''),10)||null;
   let invitado=p.get('invitado'), pases=p.get('pases')||p.get('p'), mesa=p.get('mesa'), nombresStr=p.get('nombres'), nombresArray=[];
 
   if(guestId&&listaInvitados[guestId]){
