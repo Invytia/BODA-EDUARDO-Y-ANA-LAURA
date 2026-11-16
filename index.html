@@ -450,7 +450,7 @@ h2:not(.dress-code-main),.names-container span.name,.save-date-date{background:l
         </div>
         <div id="dynamicGuestList" style="width:100%;text-align:left"></div>
         <button type="button" onclick="sendRSVP()" class="btn-whatsapp" style="margin-top:25px"><i class="fa-brands fa-whatsapp" style="font-size:1.2rem"></i> CONFIRMAR VÍA WHATSAPP</button>
-        <p class="deadline-text">CONFIRMAR ANTES DEL 09 DE ENERO</p>
+        <p class="deadline-text" id="deadlineText">CONFIRMAR ANTES DEL 09 DE ENERO</p>
       </form>
     </div>
 
@@ -603,6 +603,8 @@ document.addEventListener("DOMContentLoaded",function(){
     document.getElementById('paseSection').style.display='block';
     document.getElementById('guestNameDisplay').textContent=invitado||"Pase Especial";
     document.getElementById('guestPassesDisplay').textContent=pases;
+    // Invitaciones con pases numerados: fecha límite extendida
+    document.getElementById('deadlineText').textContent="CONFIRMAR ANTES DEL 20 DE FEBRERO DE 2027";
     if(mesa){
       document.getElementById('guestMesaDisplay').textContent=mesa;
       document.getElementById('guestMesaWrap').style.display='block';
